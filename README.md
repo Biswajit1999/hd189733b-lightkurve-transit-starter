@@ -1,122 +1,197 @@
-# HD 189733 b Lightkurve Transit Starter
+# HD 189733 b Transit Lab — No Lightkurve
 
 **Author:** Biswajit Jana  
-**Project type:** beginner-friendly exoplanet transit photometry notebook  
-**Target used:** HD 189733 b, a well-studied hot Jupiter system
+**Main file:** `HD189733b_Transit_From_FITS_No_Lightkurve.ipynb`
 
-This repository is a small, reproducible starter project for the Exoplanet Watch / citizen-science community.  
-It shows how to:
+## About
 
-- search and download public TESS light curves using `lightkurve`
-- fetch basic physical properties from the NASA Exoplanet Archive
-- clean and normalize a light curve
-- fold the light curve using the published orbital period
-- estimate the transit depth
-- save plots and CSV outputs for sharing
+A transparent Google Colab pipeline that recovers the transit of **HD 189733 b** directly from public **TESS FITS light-curve files**, without using Lightkurve. The project downloads data from MAST, reads the FITS columns with Astropy, applies quality masking, uses NASA Exoplanet Archive ephemerides, locally normalises predicted transit windows, folds the light curve, estimates the transit depth, and overlays a simple physical transit model using `batman`.
 
-The aim is not to replace full scientific modelling. It is a clean first workflow that beginners can fork, run, and extend.
+**GitHub About text:**  
+`No-Lightkurve Colab pipeline for recovering the HD 189733 b TESS transit directly from MAST FITS files, with local detrending, depth estimation and a physical batman model overlay.`
 
----
-
-## Repository structure
+Suggested topics:
 
 ```text
-hd189733b-lightkurve-transit-starter/
-├── notebooks/
-│   └── HD189733b_Lightkurve_Starter.ipynb
-├── src/
-│   └── hd189733b_lightkurve_template.py
-├── outputs/
-│   └── .gitkeep
-├── data/
-│   └── .gitkeep
-├── requirements.txt
-├── .gitignore
-├── LICENSE
-└── README.md
+exoplanets
+transit-photometry
+tess
+mast
+fits
+astropy
+astroquery
+batman
+hd189733b
+citizen-science
+astronomy-python
 ```
 
 ---
 
-## Quick start in Google Colab
+## Why this version exists
 
-1. Upload or clone this repository into Colab.
-2. Open:
+The first version used `lightkurve`, which is excellent for quick exploration, but it hides many steps. This version is more inspectable and closer to a real analysis workflow:
 
-```text
-notebooks/HD189733b_Lightkurve_Starter.ipynb
-```
-
-3. Run the notebook from top to bottom.
-
-The notebook will create plots in the `outputs/` folder.
+1. query MAST directly,
+2. download real TESS `*_lc.fits` products,
+3. read `TIME`, `PDCSAP_FLUX`, `SAP_FLUX`, and `QUALITY` columns manually,
+4. use archive ephemerides rather than blindly trusting an automatic fold,
+5. locally detrend each predicted transit window,
+6. estimate depth from the folded light curve,
+7. compare with the expected value from \( (R_p/R_\star)^2 \),
+8. overlay a physical transit model.
 
 ---
 
-## Quick start locally
+## Open in Google Colab
+
+Upload the notebook to Google Colab, or place it in this repository and open it from GitHub using Colab.
+
+Notebook:
+
+```text
+HD189733b_Transit_From_FITS_No_Lightkurve.ipynb
+```
+
+---
+
+## What the notebook produces
+
+The notebook creates an `outputs/` folder containing:
+
+```text
+01_nasa_exoplanet_archive_pscomppars.csv
+02_selected_target_parameters.csv
+03_quality_masked_tess_lightcurve.csv
+04_raw_quality_masked_tess_lightcurve.png
+05_predicted_transits_on_raw_flux.png
+06_locally_normalised_transit_points.csv
+07_binned_folded_transit.csv
+08_HD189733b_final_transit_model_plot.png
+09_transit_model_residuals.png
+10_narrow_bls_sanity_check.png
+11_final_science_summary.csv
+```
+
+The main plot is:
+
+```text
+08_HD189733b_final_transit_model_plot.png
+```
+
+---
+
+## Scientific idea
+
+For a transiting exoplanet, the approximate transit depth is:
+
+\[
+\delta \approx \left(\frac{R_p}{R_\star}\right)^2
+\]
+
+HD 189733 b is a hot Jupiter, so its transit is deep enough to be a good public demonstration target. The notebook estimates the observed depth from locally normalised TESS data and compares it with the expected archive value.
+
+---
+
+## Method summary
+
+### 1. Data access
+
+The notebook uses `astroquery.mast.Observations` to search for public TESS light-curve products near HD 189733 and downloads selected `*_lc.fits` files.
+
+### 2. FITS-level reading
+
+The notebook reads the TESS FITS table directly using:
+
+```python
+from astropy.io import fits
+```
+
+The preferred flux column is:
+
+```text
+PDCSAP_FLUX
+```
+
+If that is unavailable, the notebook falls back to:
+
+```text
+SAP_FLUX
+```
+
+### 3. Quality masking
+
+By default, the notebook uses:
+
+```python
+QUALITY == 0
+```
+
+This keeps the cleanest cadences. Users can switch to `QUALITY_MODE = "loose"` if the strict mask leaves too few points.
+
+### 4. Local transit normalisation
+
+Each predicted transit is extracted in a window around the expected transit centre. The code fits a baseline only to out-of-transit points and divides the window by that baseline. This reduces slow stellar/instrumental trends while keeping the transit shape visible.
+
+### 5. Physical model
+
+The notebook uses `batman-package` to overlay a simple limb-darkened transit model. Most orbital parameters are taken from archive values, while the radius ratio can be fitted to the binned folded transit.
+
+---
+
+## Requirements
+
+The notebook installs its own dependencies in Colab:
 
 ```bash
-git clone <your-repo-url>
-cd hd189733b-lightkurve-transit-starter
-pip install -r requirements.txt
-python src/hd189733b_lightkurve_template.py
+pip install astroquery astropy batman-package scipy pandas numpy matplotlib
 ```
 
-Optional custom target:
-
-```bash
-python src/hd189733b_lightkurve_template.py --target "HD 189733" --planet "HD 189733 b"
-```
+No Lightkurve is required.
 
 ---
 
-## Outputs
+## Limitations
 
-The script/notebook saves:
+This is a teaching and demonstration workflow, not a final publication-grade transit analysis.
 
-```text
-outputs/01_raw_lightcurve.png
-outputs/02_cleaned_lightcurve.png
-outputs/03_folded_transit.png
-outputs/04_binned_transit_depth.png
-outputs/05_physical_properties.csv
-outputs/06_summary_metrics.csv
-```
+Known simplifications:
 
----
-
-## What beginners should try next
-
-- Try another target, e.g. `WASP-12`, `HAT-P-32`, `TOI-700`, or `HD 209458`.
-- Compare SAP and PDCSAP flux where available.
-- Change the flattening window length and see how the transit shape changes.
-- Try different bin sizes for the folded light curve.
-- Download Target Pixel Files and experiment with custom apertures.
-- Add a simple transit model using `batman-package`.
+- limb-darkening coefficients are approximate,
+- the baseline model is a simple local polynomial,
+- uncertainties are estimated with a simple bootstrap,
+- the physical model is a compact fit, not a full MCMC posterior,
+- HD 189733 is an active spotted star, so residuals may include real stellar activity.
 
 ---
 
-## Notes and limitations
+## Good next upgrades
 
-- This is a teaching and exploration notebook, not a final publication-grade transit fit.
-- Transit parameters are pulled from the NASA Exoplanet Archive when available.
-- TESS availability depends on whether the target was observed and whether products are available in MAST.
-- The measured depth is a simple median-based estimate, so it should be treated as approximate.
-
----
-
-## Data and software acknowledgement
-
-This project uses public mission data and community tools:
-
-- Lightkurve for working with Kepler, K2, and TESS light curves.
-- MAST/STScI for public TESS data access.
-- NASA Exoplanet Archive for confirmed exoplanet parameters.
-- Astropy, NumPy, Pandas, and Matplotlib for scientific Python analysis.
+- Add a target selector for several hot Jupiters.
+- Add automatic sector-by-sector comparison.
+- Add real TESS-band limb-darkening lookup.
+- Add MCMC fitting with `emcee` or `exoplanet`.
+- Add support for uploaded ground-based Exoplanet Watch CSV files.
+- Add a web-dashboard version for public users.
 
 ---
 
-## Feedback welcome
+## Acknowledgements
 
-This project is intended to be public-friendly.  
-Suggestions are welcome on how to make the workflow clearer, more accessible, and more useful for citizen scientists learning transit photometry.
+This project uses public data and open-source astronomy tools from:
+
+- MAST / STScI for TESS data access.
+- NASA Exoplanet Archive for published exoplanet parameters.
+- Astropy and Astroquery for scientific Python data access.
+- Batman for analytic/numerical transit light-curve modelling.
+
+---
+
+## Citation notes
+
+When using this repository, cite the relevant mission/archive/software papers for:
+
+- TESS and MAST data products,
+- NASA Exoplanet Archive,
+- Astropy / Astroquery,
+- Batman transit modelling.
