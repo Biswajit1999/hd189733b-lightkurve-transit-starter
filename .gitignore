@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data/cache
+*.fits
+*.fits.gz
+mastDownload/
+lightkurve-cache/
+data/downloads/
+outputs/*.png
+outputs/*.csv
+outputs/*.pdf
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
