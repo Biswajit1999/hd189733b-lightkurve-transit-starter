@@ -9,11 +9,6 @@ This is a short Google Colab notebook for exploring the transit method using pub
 
 The notebook downloads TESS light curves, uses published planet parameters from the NASA Exoplanet Archive, aligns the observed data using the known transit ephemeris, stacks the individual transit windows, measures the transit depth, and estimates simple physical parameters such as \(R_p/R_\star\), planet radius, bulk density, transit probability, and approximate equilibrium temperature where archive inputs are available.
 
-## GitHub About text
-
-```text
-A beginner-friendly Google Colab notebook for exploring exoplanet transit photometry with TESS data, using HD 189733 b as the default target.
-```
 
 ## Suggested topics
 
@@ -145,13 +140,6 @@ Good beginner targets usually have:
 - published ephemerides,
 - available TESS light curves.
 
-## Image prompt for an original project graphic
-
-Use this prompt to create an original image for the repository. Do not copy or recreate any NASA/ESA/artist impression directly.
-
-```text
-Create an original scientifically inspired digital illustration of the exoplanet HD 189733 b, a deep-blue hot Jupiter orbiting very close to an orange K-type dwarf star. Show the planet as a large gas giant with a rich cobalt-blue atmosphere, subtle high-altitude haze, and hints of silicate/glassy cloud particles suggested abstractly rather than literally. Place the orange star in the background with warm light illuminating one side of the planet. Add a faint transit-photometry motif: a small inset light curve showing a clear dip, or thin orbital guide lines around the star. The composition should feel like a modern astrophysics research project cover image, cinematic but scientifically restrained, dark space background, high contrast, no text, no logos, no spacecraft, no imitation of existing NASA or ESA artwork, original composition, 16:9 aspect ratio, high resolution.
-```
 
 ## Notes and limitations
 
