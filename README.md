@@ -257,3 +257,7 @@ Pont, F. et al. (2007) ‘Hubble Space Telescope time-series photometry of the p
 Ricker, G. R. et al. (2015) ‘Transiting Exoplanet Survey Satellite’, *Journal of Astronomical Telescopes, Instruments, and Systems*.
 
 Beaulieu, J. P., Carey, S., Ribas, I. and Tinetti, G. (2008) ‘Primary transit of the planet HD 189733 b at 3.6 and 5.8 microns’, *The Astrophysical Journal*.
+
+## Research Quality Upgrade
+
+See [RESEARCH_QUALITY.md](RESEARCH_QUALITY.md) for the validation layer, reference anchors, equations and research boundaries added to this repository.
