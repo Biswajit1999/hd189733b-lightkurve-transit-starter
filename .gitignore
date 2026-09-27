@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+hd189733b_transit_photometry_outputs.zip

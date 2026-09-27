@@ -1,10 +1,10 @@
 {
   "name": "hd189733b-lightkurve-transit-starter",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
-  "description": "Research-quality validation wrapper.",
+  "description": "Offline validation for an ephemeris-conditioned TESS transit notebook.",
   "scripts": {
-    "validate:research": "node scripts/validate_repository.mjs",
+    "validate": "node scripts/validate_repository.mjs",
     "check": "node scripts/validate_repository.mjs"
   },
   "author": "Biswajit Jana",

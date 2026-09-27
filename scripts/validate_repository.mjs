@@ -1,26 +1,62 @@
 import fs from 'node:fs';
-const required = ['README.md', 'RESEARCH_QUALITY.md', 'data/research-reference.json'];
 
-let failures = [];
-for (const file of required) if (!fs.existsSync(file)) failures.push(file + ' missing');
-const ref = JSON.parse(fs.readFileSync('data/research-reference.json', 'utf8'));
-if (!Array.isArray(ref.anchors) || ref.anchors.length < 3) failures.push('reference anchors missing');
-if (!Array.isArray(ref.equations) || ref.equations.length === 0) failures.push('equations missing');
-if (!Array.isArray(ref.references) || ref.references.length === 0) failures.push('references missing');
-for (const anchor of ref.anchors || []) {
-  if (!Number.isFinite(anchor.x) || !Number.isFinite(anchor.y) || !anchor.label) failures.push('invalid anchor');
+const required = [
+  'README.md',
+  'METHODS.md',
+  'HD189733b_Transit_Photometry.ipynb',
+  'data/analysis-contract.json',
+];
+const failures = [];
+
+for (const file of required) {
+  if (!fs.existsSync(file)) failures.push(`${file} missing`);
 }
-const text = fs.readdirSync('.').filter(name => /^(README|RESEARCH_QUALITY).*\.md$/i.test(name)).map(name => fs.readFileSync(name, 'utf8')).join('\n');
-for (const citation of ref.references || []) {
-  const family = citation.split(',')[0];
-  if (!text.includes(family)) failures.push('missing citation family ' + family);
+
+const notebook = JSON.parse(
+  fs.readFileSync('HD189733b_Transit_Photometry.ipynb', 'utf8'),
+);
+const contract = JSON.parse(
+  fs.readFileSync('data/analysis-contract.json', 'utf8'),
+);
+const notebookText = notebook.cells
+  .map((cell) => (cell.source || []).join(''))
+  .join('\n');
+const readme = fs.readFileSync('README.md', 'utf8');
+const methods = fs.readFileSync('METHODS.md', 'utf8');
+
+if (notebook.nbformat !== 4 || !Array.isArray(notebook.cells)) {
+  failures.push('notebook must be valid nbformat 4 JSON');
 }
-const sourceFiles = fs.readdirSync('.').filter(name => /\.(html|css|js|py|ipynb|md)$/i.test(name));
-const combined = sourceFiles.map(name => fs.readFileSync(name, 'utf8')).join('\n');
-const banned = ['TO' + 'DO', 'PLACE' + 'HOLDER', 'insert ' + 'logic', 'coming ' + 'soon'];
-for (const token of banned) if (combined.toLowerCase().includes(token.toLowerCase())) failures.push('unfinished token ' + token);
+for (const token of [
+  'maximum valid cadences; lowest index breaks ties',
+  'event_depths_with_local_baselines',
+  'np.random.default_rng(189733)',
+  'for _ in range(5000)',
+  'per_transit_depths.csv',
+]) {
+  if (!notebookText.includes(token)) failures.push(`notebook contract missing: ${token}`);
+}
+for (const forbidden of [
+  'good["score"] = np.abs(good["depth_percent"] - REFERENCE_DEPTH_PERCENT)',
+  'chosen = good.sort_values("score")',
+  'Research Quality Upgrade',
+]) {
+  if (`${notebookText}\n${readme}`.includes(forbidden)) {
+    failures.push(`forbidden circular/upgrade text present: ${forbidden}`);
+  }
+}
+if (contract.bootstrap.resamples !== 5000 || contract.bootstrap.seed !== 189733) {
+  failures.push('bootstrap implementation and analysis contract disagree');
+}
+if (!methods.includes('published transit depth participates')) {
+  failures.push('methods must state the product-selection exclusion');
+}
+
 if (failures.length) {
   console.error(failures.join('\n'));
   process.exit(1);
 }
-console.log('hd189733b-lightkurve-transit-starter: research validation passed with ' + ref.anchors.length + ' anchors.');
+console.log(
+  `Notebook contract valid: ${notebook.cells.length} cells; ` +
+    `${contract.bootstrap.resamples} event-bootstrap resamples.`,
+);
