@@ -1,0 +1,24 @@
+Quantity,Value
+Host star,HD 189733
+Planet,HD 189733 b
+Discovery method,Radial Velocity
+Distance [pc],19.7638
+Orbital period [days],2.21857567
+Transit duration [hours],1.8233621
+Measured transit depth [%],2.2659541047280407
+Measured transit depth [ppm],22659.541047280407
+Measured Rp/Rs from dip,0.1505308641019522
+Archive Rp/Rs,0.15534
+Estimated planet radius from dip [R_earth],12.314520251610373
+Estimated planet radius from dip [R_jup],1.0986297993733023
+Archive planet radius [R_earth],12.66617
+Archive planet radius [R_jup],1.13
+Archive planet mass [M_jup],1.13
+Estimated bulk density [g/cm3],1.0567885206735848
+Semi-major axis [AU],0.03126
+Orbital inclination [deg],85.71
+Stellar radius [R_sun],0.75
+Stellar mass [M_sun],0.79
+Stellar effective temperature [K],5052.0
+Approx. equilibrium temperature [K],1193.253685920922
+Approx. transit probability [%],12.837106804780781

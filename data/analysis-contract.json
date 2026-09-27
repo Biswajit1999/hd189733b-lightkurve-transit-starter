@@ -1,0 +1,26 @@
+{
+  "target": "HD 189733 b",
+  "data_sources": [
+    "NASA Exoplanet Archive pscomppars TAP table",
+    "MAST TESS light-curve products via Lightkurve"
+  ],
+  "product_selection": {
+    "primary_key": "finite quality-filtered cadence count, descending",
+    "tie_break": "search-result product index, ascending",
+    "forbidden_inputs": [
+      "measured transit depth",
+      "published reference depth"
+    ]
+  },
+  "epoch_fit_window_days": 0.25,
+  "minimum_in_transit_points_per_event": 5,
+  "minimum_out_of_transit_points_per_event": 5,
+  "minimum_measurable_events": 3,
+  "depth_aggregator": "median of locally normalized per-event depths",
+  "bootstrap": {
+    "unit": "complete transit event",
+    "resamples": 5000,
+    "seed": 189733,
+    "reported_quantiles": [0.16, 0.84]
+  }
+}
