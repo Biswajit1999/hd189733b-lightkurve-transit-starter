@@ -15,6 +15,24 @@ The notebook downloads real public TESS light curves, uses published planet para
 
 This is not intended to be a full publication-level transit fit. It is a readable, forkable starting point for learning how the transit method works.
 
+The exact estimand, selection rule, uncertainty calculation, and inference
+limits are documented in [METHODS.md](METHODS.md).
+
+## Reproduced result
+
+The checked-in outputs were regenerated from the public SPOC 120-second light
+curve for **TESS Sector 41**
+(`tess2021204101404-s0041-0000000256364928-0212-s_lc.fits`). The coverage-only
+rule selected this product before its transit depth was considered.
+
+Across 11 locally normalized transit events, the median depth is **2.266%**
+(22,660 ppm). A fixed-seed, 5,000-resample event bootstrap gives a central 68%
+interval of **2.247–2.307%**. The corresponding first-order radius ratio is
+**Rp/Rs = 0.1505**. These values are conditional on the pipeline product,
+ephemeris fit, baseline definition, and approximation stated in the methods.
+
+![Folded Sector 41 TESS transit](outputs/02_folded_transit.png)
+
 ---
 
 
@@ -41,12 +59,17 @@ The notebook walks through a simple but realistic transit-photometry workflow:
 1. Choose a target planet.
 2. Query planet and stellar parameters from the NASA Exoplanet Archive.
 3. Download real public TESS light curves using Lightkurve.
-4. Use the published period and transit midpoint to locate transits in the data.
-5. Extract and locally normalise each transit window.
-6. Stack the individual transits into one folded light curve.
-7. Measure the transit depth.
-8. Estimate simple physical parameters from the dip.
-9. Save the plots and summary tables.
+4. Select a product by a prespecified coverage rule: most valid cadences,
+   with the lowest product index as the tie-break. Expected transit depth is
+   never used for product selection.
+5. Use the published period and transit midpoint to locate transits, then fit
+   a bounded epoch offset as an explicit nuisance parameter.
+6. Normalize every usable transit against its own out-of-transit baseline.
+7. Aggregate per-transit depths with the median and report a deterministic
+   5,000-resample event-bootstrap interval.
+8. Stack the observed transit windows into a folded light curve.
+9. Estimate simple physical parameters from the measured depth.
+10. Save the plots, per-event measurements, provenance, and summary tables.
 
 ---
 
@@ -155,18 +178,17 @@ After running the notebook, the `outputs/` folder contains:
 
 ```text
 target_info.csv
-01_tess_light_curve.png
-stacked_transit_points.csv
-binned_transit.csv
-derived_physical_parameters.csv
-final_transit_plot.png
-transit_photometry_results.zip
+01_selected_tess_light_curve.png
+02_folded_transit.png
+per_transit_depths.csv
+transit_depth_summary.csv
+physical_properties_from_transit.csv
 ```
 
 The main figure is:
 
 ```text
-final_transit_plot.png
+02_folded_transit.png
 ```
 
 ---
@@ -176,8 +198,16 @@ final_transit_plot.png
 ```text
 HD189733b_Transit_Photometry.ipynb
 README.md
+METHODS.md
+requirements.txt
 assets/
   hd189733b_cover.png
+data/
+  analysis-contract.json
+outputs/
+  generated figures and machine-readable result tables
+scripts/
+  repository and notebook validators
 ```
 
 ---
@@ -192,10 +222,11 @@ HD189733b_Transit_Photometry.ipynb
 
 Then run the notebook from top to bottom.
 
-The notebook installs the required packages:
+The notebook installs bounded versions of the required packages. The same
+constraints are recorded in `requirements.txt`:
 
 ```bash
-pip install lightkurve pandas numpy matplotlib astropy
+pip install -r requirements.txt
 ```
 
 ---
@@ -204,6 +235,12 @@ pip install lightkurve pandas numpy matplotlib astropy
 
 This notebook is designed for learning and experimentation.
 
+The notebook deliberately separates product selection from the expected
+depth: coverage determines the product, while the published depth is shown
+only afterward as a comparison. This prevents the reported agreement from
+being manufactured by choosing the sector whose answer was already closest
+to the reference.
+
 It does not include:
 
 - a full physical transit model,
@@ -211,13 +248,15 @@ It does not include:
 - starspot modelling,
 - correlated-noise treatment,
 - Bayesian posterior sampling,
-- sector-by-sector validation.
+- sector-by-sector validation,
+- a dilution/crowding correction beyond the selected pipeline product,
+- a covariance-aware treatment of time-correlated stellar activity.
 
 HD 189733 is an active star, so real residuals can include stellar activity and starspot effects. The results should therefore be treated as a first exploration rather than a final scientific measurement.
 
 ---
 
-## Future ideas
+## Next scientific extensions
 
 Possible upgrades for this project:
 
@@ -257,7 +296,3 @@ Pont, F. et al. (2007) ‘Hubble Space Telescope time-series photometry of the p
 Ricker, G. R. et al. (2015) ‘Transiting Exoplanet Survey Satellite’, *Journal of Astronomical Telescopes, Instruments, and Systems*.
 
 Beaulieu, J. P., Carey, S., Ribas, I. and Tinetti, G. (2008) ‘Primary transit of the planet HD 189733 b at 3.6 and 5.8 microns’, *The Astrophysical Journal*.
-
-## Research Quality Upgrade
-
-See [RESEARCH_QUALITY.md](RESEARCH_QUALITY.md) for the validation layer, reference anchors, equations and research boundaries added to this repository.
