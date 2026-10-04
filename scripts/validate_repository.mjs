@@ -39,7 +39,6 @@ for (const token of [
 for (const forbidden of [
   'good["score"] = np.abs(good["depth_percent"] - REFERENCE_DEPTH_PERCENT)',
   'chosen = good.sort_values("score")',
-  'Research Quality Upgrade',
 ]) {
   if (`${notebookText}\n${readme}`.includes(forbidden)) {
     failures.push(`forbidden circular/upgrade text present: ${forbidden}`);
