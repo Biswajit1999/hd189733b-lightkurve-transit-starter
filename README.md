@@ -300,3 +300,18 @@ Pont, F. et al. (2007) ‘Hubble Space Telescope time-series photometry of the p
 Ricker, G. R. et al. (2015) ‘Transiting Exoplanet Survey Satellite’, *Journal of Astronomical Telescopes, Instruments, and Systems*.
 
 Beaulieu, J. P., Carey, S., Ribas, I. and Tinetti, G. (2008) ‘Primary transit of the planet HD 189733 b at 3.6 and 5.8 microns’, *The Astrophysical Journal*.
+
+## Research evidence and downloads
+
+- [Download the machine-readable table profiles](evidence/table-profiles.json) for 4 archived tables. Open `table-evidence.html` from the checkout for the coverage chart.
+- Start with [Transit depth summary](outputs/transit_depth_summary.csv), [Per transit depths](outputs/per_transit_depths.csv), [Physical properties from transit](outputs/physical_properties_from_transit.csv).
+- [View 01 selected tess light curve](outputs/01_selected_tess_light_curve.png).
+
+Run these commands from the repository root to rebuild the published evidence.
+
+```sh
+python scripts/evidence_catalog.py
+python scripts/render_evidence_page.py
+python scripts/profile_evidence_tables.py
+python scripts/render_table_profiles.py
+```
