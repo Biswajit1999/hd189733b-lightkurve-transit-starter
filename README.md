@@ -214,13 +214,17 @@ scripts/
 
 ## How to run
 
-Open the notebook in Google Colab:
+Open the [notebook in Google Colab](https://colab.research.google.com/github/Biswajit1999/hd189733b-lightkurve-transit-starter/blob/main/HD189733b_Transit_Photometry.ipynb).
+
+The default HD 189733 b run replays the published result from the fixed Sector 41 SPOC FITS. It verifies the archive download against the recorded SHA-256 and uses the ephemeris from the committed target-info snapshot. To use a previously downloaded copy locally, set `TRANSIT_FITS` to its path.
+
+To browse MAST for a different target or to repeat the original coverage-based product search, set `REPLAY_SECTOR_41 = False` in the settings cell.
 
 ```text
 HD189733b_Transit_Photometry.ipynb
 ```
 
-Then run the notebook from top to bottom.
+Run the notebook from top to bottom.
 
 The notebook installs bounded versions of the required packages. The same
 constraints are recorded in `requirements.txt`:
