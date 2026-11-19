@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "project": "HD 189733 b Transit Photometry",
+  "repository": "https://github.com/Biswajit1999/hd189733b-lightkurve-transit-starter",
+  "files": [
+    {
+      "label": "Analysis contract",
+      "path": "data/analysis-contract.json",
+      "role": "Data and provenance",
+      "bytes": 789,
+      "sha256": "0447e938dbb046b0b50f8ed595e6e86aa9a6dede427b43d0f73d039a1dfa0481",
+      "hash_basis": "LF-normalised text",
+      "format": "JSON",
+      "keys": [
+        "target",
+        "data_sources",
+        "product_selection",
+        "epoch_fit_window_days",
+        "minimum_in_transit_points_per_event",
+        "minimum_out_of_transit_points_per_event",
+        "minimum_measurable_events"
+      ],
+      "arrays": {
+        "data_sources": 2
+      }
+    },
+    {
+      "label": "Transit depth summary",
+      "path": "outputs/transit_depth_summary.csv",
+      "role": "Tables and numerical results",
+      "bytes": 631,
+      "sha256": "7766eab4bda069173010ba7f225ae8349465f5848fd79d0c3193171272825876",
+      "hash_basis": "LF-normalised text",
+      "format": "CSV",
+      "rows": 1,
+      "columns": 16,
+      "headers": [
+        "target",
+        "planet",
+        "product_index_used",
+        "mission",
+        "product_filename",
+        "data_uri",
+        "period_days"
+      ],
+      "preview": [
+        [
+          "HD 189733",
+          "HD 189733 b",
+          "0",
+          "TESS Sector 41",
+          "tess2021204101404-s0041-0000000256364928-0212-s_lc.fits",
+          "mast:TESS/product/tess2021204101404-s0041-0000000256364928-0212-s_lc.fits",
+          "2.21857567"
+        ]
+      ]
+    },
+    {
+      "label": "Per transit depths",
+      "path": "outputs/per_transit_depths.csv",
+      "role": "Tables and numerical results",
+      "bytes": 361,
+      "sha256": "a3fc57443dec6b5140826405b4dd7ec5114b75405306466d65345d941962811a",
+      "hash_basis": "LF-normalised text",
+      "format": "CSV",
+      "rows": 11,
+      "columns": 4,
+      "headers": [
+        "event",
+        "depth_fraction",
+        "n_in",
+        "n_out"
+      ],
+      "preview": [
+        [
+          "-5",
+          "0.022439368228318823",
+          "55",
+          "106"
+        ],
+        [
+          "-4",
+          "0.023314647208135808",
+          "54",
+          "106"
+        ],
+        [
+          "-3",
+          "0.023257322247531298",
+          "55",
+          "106"
+        ],
+        [
+          "-2",
+          "0.022677085979501577",
+          "55",
+          "106"
+        ]
+      ]
+    },
+    {
+      "label": "Physical properties from transit",
+      "path": "outputs/physical_properties_from_transit.csv",
+      "role": "Tables and numerical results",
+      "bytes": 878,
+      "sha256": "65c974a13338265a34b093feaf7c966a1abe30a747df834f92087270516c96e0",
+      "hash_basis": "LF-normalised text",
+      "format": "CSV",
+      "rows": 23,
+      "columns": 2,
+      "headers": [
+        "Quantity",
+        "Value"
+      ],
+      "preview": [
+        [
+          "Host star",
+          "HD 189733"
+        ],
+        [
+          "Planet",
+          "HD 189733 b"
+        ],
+        [
+          "Discovery method",
+          "Radial Velocity"
+        ],
+        [
+          "Distance [pc]",
+          "19.7638"
+        ]
+      ]
+    },
+    {
+      "label": "Target info",
+      "path": "outputs/target_info.csv",
+      "role": "Tables and numerical results",
+      "bytes": 600,
+      "sha256": "827a62c7c446bfc3096f1ffaaf80be2491267b19debde5c983f50d783689d3ef",
+      "hash_basis": "LF-normalised text",
+      "format": "CSV",
+      "rows": 18,
+      "columns": 2,
+      "headers": [
+        "Quantity",
+        "Value"
+      ],
+      "preview": [
+        [
+          "Host star",
+          "HD 189733"
+        ],
+        [
+          "Planet",
+          "HD 189733 b"
+        ],
+        [
+          "Discovery method",
+          "Radial Velocity"
+        ],
+        [
+          "Distance [pc]",
+          "19.7638"
+        ]
+      ]
+    },
+    {
+      "label": "01 selected tess light curve",
+      "path": "outputs/01_selected_tess_light_curve.png",
+      "role": "Figures",
+      "bytes": 173157,
+      "sha256": "3e45569f19d27b18fdacfd6414a2e045b05dd48273b9956c637a11a5467e7cf4",
+      "hash_basis": "exact bytes",
+      "format": "PNG"
+    },
+    {
+      "label": "02 folded transit",
+      "path": "outputs/02_folded_transit.png",
+      "role": "Figures",
+      "bytes": 305461,
+      "sha256": "3fb816f23ebaa96a77c58bf7c12a7f5748f810e603841817029d96a24f74f6b3",
+      "hash_basis": "exact bytes",
+      "format": "PNG"
+    }
+  ]
+}

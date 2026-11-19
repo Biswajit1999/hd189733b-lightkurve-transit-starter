@@ -1,0 +1,41 @@
+{
+  "project": "HD 189733 b Transit Photometry",
+  "repository": "https://github.com/Biswajit1999/hd189733b-lightkurve-transit-starter",
+  "files": [
+    {
+      "label": "Analysis contract",
+      "path": "data/analysis-contract.json",
+      "role": "Data and provenance"
+    },
+    {
+      "label": "Transit depth summary",
+      "path": "outputs/transit_depth_summary.csv",
+      "role": "Tables and numerical results"
+    },
+    {
+      "label": "Per transit depths",
+      "path": "outputs/per_transit_depths.csv",
+      "role": "Tables and numerical results"
+    },
+    {
+      "label": "Physical properties from transit",
+      "path": "outputs/physical_properties_from_transit.csv",
+      "role": "Tables and numerical results"
+    },
+    {
+      "label": "Target info",
+      "path": "outputs/target_info.csv",
+      "role": "Tables and numerical results"
+    },
+    {
+      "label": "01 selected tess light curve",
+      "path": "outputs/01_selected_tess_light_curve.png",
+      "role": "Figures"
+    },
+    {
+      "label": "02 folded transit",
+      "path": "outputs/02_folded_transit.png",
+      "role": "Figures"
+    }
+  ]
+}
