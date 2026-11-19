@@ -1,0 +1,239 @@
+{
+  "schema": 1,
+  "project": "HD 189733 b Transit Photometry",
+  "tables": [
+    {
+      "path": "outputs/transit_depth_summary.csv",
+      "label": "Transit depth summary",
+      "role": "Tables and numerical results",
+      "rows": 1,
+      "width_mismatches": 0,
+      "columns": [
+        {
+          "name": "target",
+          "blank": 0,
+          "text": 1,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "planet",
+          "blank": 0,
+          "text": 1,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "product_index_used",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        },
+        {
+          "name": "mission",
+          "blank": 0,
+          "text": 1,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "product_filename",
+          "blank": 0,
+          "text": 1,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "data_uri",
+          "blank": 0,
+          "text": 1,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "period_days",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 2.21857567,
+          "maximum": 2.21857567
+        },
+        {
+          "name": "duration_hours",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 1.8233621,
+          "maximum": 1.8233621
+        },
+        {
+          "name": "epoch_time_used",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 2433.1980541797866,
+          "maximum": 2433.1980541797866
+        },
+        {
+          "name": "measured_depth_percent",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 2.2659541047280407,
+          "maximum": 2.2659541047280407
+        },
+        {
+          "name": "measured_depth_ppm",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 22659.541047280407,
+          "maximum": 22659.541047280407
+        },
+        {
+          "name": "depth_bootstrap68_low_percent",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 2.2473598804325756,
+          "maximum": 2.2473598804325756
+        },
+        {
+          "name": "depth_bootstrap68_high_percent",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 2.306790490643451,
+          "maximum": 2.306790490643451
+        },
+        {
+          "name": "n_locally_normalised_transits",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 11.0,
+          "maximum": 11.0
+        },
+        {
+          "name": "product_selection_rule",
+          "blank": 0,
+          "text": 1,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "reference_depth_percent",
+          "blank": 0,
+          "text": 0,
+          "finite": 1,
+          "nonfinite": 0,
+          "minimum": 2.41,
+          "maximum": 2.41
+        }
+      ]
+    },
+    {
+      "path": "outputs/per_transit_depths.csv",
+      "label": "Per transit depths",
+      "role": "Tables and numerical results",
+      "rows": 11,
+      "width_mismatches": 0,
+      "columns": [
+        {
+          "name": "event",
+          "blank": 0,
+          "text": 0,
+          "finite": 11,
+          "nonfinite": 0,
+          "minimum": -5.0,
+          "maximum": 6.0
+        },
+        {
+          "name": "depth_fraction",
+          "blank": 0,
+          "text": 0,
+          "finite": 11,
+          "nonfinite": 0,
+          "minimum": 0.02232788839545452,
+          "maximum": 0.02338961713393517
+        },
+        {
+          "name": "n_in",
+          "blank": 0,
+          "text": 0,
+          "finite": 11,
+          "nonfinite": 0,
+          "minimum": 54.0,
+          "maximum": 55.0
+        },
+        {
+          "name": "n_out",
+          "blank": 0,
+          "text": 0,
+          "finite": 11,
+          "nonfinite": 0,
+          "minimum": 53.0,
+          "maximum": 106.0
+        }
+      ]
+    },
+    {
+      "path": "outputs/physical_properties_from_transit.csv",
+      "label": "Physical properties from transit",
+      "role": "Tables and numerical results",
+      "rows": 23,
+      "width_mismatches": 0,
+      "columns": [
+        {
+          "name": "Quantity",
+          "blank": 0,
+          "text": 23,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "Value",
+          "blank": 0,
+          "text": 3,
+          "finite": 20,
+          "nonfinite": 0
+        }
+      ]
+    },
+    {
+      "path": "outputs/target_info.csv",
+      "label": "Target info",
+      "role": "Tables and numerical results",
+      "rows": 18,
+      "width_mismatches": 0,
+      "columns": [
+        {
+          "name": "Quantity",
+          "blank": 0,
+          "text": 18,
+          "finite": 0,
+          "nonfinite": 0
+        },
+        {
+          "name": "Value",
+          "blank": 0,
+          "text": 4,
+          "finite": 14,
+          "nonfinite": 0
+        }
+      ]
+    }
+  ],
+  "excluded": []
+}
