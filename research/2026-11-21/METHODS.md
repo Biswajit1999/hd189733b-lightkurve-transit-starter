@@ -1,0 +1,5 @@
+# Event heterogeneity and red-noise diagnostics — 21 November 2026
+
+Two conditional analyses: inverse-variance event-depth mean with Cochran Q/reduced Q, and a time-averaging beta curve from non-overlapping residual bins compared with the finite-sample white-noise prediction. Depth uncertainties must be independent and correctly calibrated for Q interpretation. Residuals must be chronologically ordered, uniformly sampled, and detrended without transit leakage; gaps should be handled per continuous segment. Q is not itself a p-value and beta is not a direct physical stellar-variability measurement.
+
+Run from this folder: `python -m unittest discover -p 'test_*.py' -v`. Four synthetic tests passed against equivalent local development code; the exact published branch has not been independently rerun. No new TESS analysis or measured depth is claimed. AI-assisted code preparation disclosed; Biswajit Jana remains the requested sole research author. Verify commit metadata and CI before merging.
